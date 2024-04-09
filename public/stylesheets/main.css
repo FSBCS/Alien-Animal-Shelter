@@ -1,0 +1,65 @@
+header{
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: auto auto; 
+  background-color: lightgreen;
+  color: white;
+
+}
+
+nav {
+  grid-row: 2; /* Place the nav bar in the second row */
+  width: 100%; /* Ensure the nav bar extends across the entire header */
+}
+
+body {
+    background-color: lightgreen;
+}
+
+h1 {
+    color: white;
+    background-color: lightgreen;
+    text-align: center;
+}
+
+p {
+    color: darkgreen;
+}
+
+ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  background-color: white;
+  }
+  
+  li {
+    display: inline;
+    float: left;
+  }
+  
+  li a {
+    display: block;
+    color: darkgreen;
+    padding: 14px 16px;
+    text-decoration: none;
+  }
+  
+  /* Change the link color to #111 (black) on hover */
+  li a:hover {
+    background-color: lightgreen;
+  }
+
+
+  button {
+    display: block;
+    grid-row: 1;
+    grid-column: 2;
+    background-color: white;
+    color: darkgreen;
+    float:right;
+    border: darkgreen;
+    border-radius: 12px;
+    border: 4px;
+  }
