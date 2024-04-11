@@ -31,21 +31,6 @@ app.get('/signup', (req, res) => {
         res.render('signup');
     }
 });
-app.post('/signup', (req, res) => {
-    const { username, password } = req.body;
-
-    const newUser = User.createNewUser(username, password, email, firstName, lastName); // Create a new user
-
-    db.insertUser(newUser, (err) => {
-        if (err) {
-            console.log(err);
-            res.redirect('/signup'); // Redirect to signup page on error
-        } else {
-            console.log('User added to database');
-            res.redirect('/login'); // Redirect to login page after successful signup
-        }
-    });
-});
 
 app.listen(port, () => {
     console.log(`Server listening on port ${port}`);

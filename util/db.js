@@ -99,6 +99,9 @@ function insertUser(user, callback=(err)=>{console.log(err)}) {
                             callback(err);
                         } else {
                             callback(null);
+                            console.log("Inserting user into database");
+                            console.log("User data:", user);
+                            console.log("User added to database");
                         }
                     });
                 });
@@ -160,6 +163,7 @@ function getUserByUsername(username, callback) {
             callback();
         } else {
             const usr = User.loadUserFromDBRecord(row);
+            console.log("Retrieved user from DB:", usr);
             callback(null, usr);
         }
     });
