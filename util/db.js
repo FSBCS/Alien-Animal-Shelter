@@ -199,7 +199,6 @@ function getUserByUsername(username, callback) {
             callback();
         } else {
             const usr = User.loadUserFromDBRecord(row);
-            console.log("Retrieved user from DB:", usr);
             callback(null, usr);
         }
     });

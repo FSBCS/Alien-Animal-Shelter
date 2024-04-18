@@ -63,36 +63,36 @@ ul {
     border-radius: 12px;
     border: 4px;
   }
- /* Inline Form Action CSS */
+ /* Form Action CSS */
 
- .form-inline {
+ .form  {
   display: flex;
   flex-flow: row wrap;
   align-items: center;
 }
 
 /* Add some margins for each label */
-.form-inline label {
+.form label {
   margin: 5px 10px 5px 0;
 }
 
 /* Style the input fields */
-.form-inline input {
+.form input {
   vertical-align: middle;
   margin: 5px 10px 5px 0;
-  padding: 10px;
+  padding: 5px;
   background-color: #fff;
   border: 1px solid #ddd;
 }
 
 /* Style the submit button */
-.form-inline button {
+button.submit {
   padding: 10px 20px;
-  background-color: dodgerblue;
+  background-color: darkgreen;
   border: 1px solid #ddd;
   color: white;
 }
 
-.form-inline button:hover {
-  background-color: royalblue;
+button.submit :hover {
+  background-color: white;
 }

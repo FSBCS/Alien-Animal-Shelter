@@ -1,9 +1,48 @@
-<h1>Profile</h1>
 <%- include('partials/header') %>
-<div>
-    <h2><%= username %></h2>
+<h1>Profile</h1>
+<link rel="stylesheet" type="text/css" href="/stylesheets/main.css">
+<div id="user-info">
+    <p id="username"><%= username %></p>
     <p><%= email %></p>
     <p><%= firstName %></p>
     <p><%= lastName %></p>
+    <button id="update-username" type="button">Edit Username</button>
 </div>
+
+<div id="edit-user-info" style="display: none;">
+    <input type="text" id="edit-username" value="<%= username %>">
+    <input type="text" id="edit-email" value="<%= email %>">
+    <input type="text" id="edit-firstName" value="<%= firstName %>">
+    <input type="text" id="edit-lastName" value="<%= lastName %>">
+    <button id="save-changes" type="button">Save Changes</button>
+</div>
+
+
 <%- include('partials/footer') %>
+
+<script>
+    document.getElementById("update-username").addEventListener('click', function () {
+        document.getElementById("user-info").style.display = "none";
+        document.getElementById("edit-user-info").style.display = "block";
+    });
+</script>
+
+<script src="scripts/updateProfile.js"></script>
+<script>
+    document.getElementById("save-changes").addEventListener('click', function () {
+        const firstName = document.getElementById("edit-firstName").value;
+        const lastName = document.getElementById("edit-lastName").value;
+        const email = null;
+        const password = null;
+        const username = document.getElementById("edit-username").value;
+        updateProfile("/profile", firstName, lastName, null, null, username)
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    console.log('Username updated successfully');
+                } else {
+                    console.error('Failed to update username:', data.message);
+                }
+            });
+        });
+            </script>
