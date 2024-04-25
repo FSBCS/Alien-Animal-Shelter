@@ -96,3 +96,37 @@ button.submit {
 button.submit :hover {
   background-color: white;
 }
+
+.animal-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 300px;
+  height: 400px;
+  background-color: white;
+  border: 1px solid darkgreen;
+  border-radius: 8px;
+  padding: 20px;
+  margin: 10px;
+}
+
+.animalImage {
+  width: 200px;
+  height: 200px;
+  object-fit: cover;
+  border-radius: 50%;
+  margin-bottom: 10px;
+}
+
+.animalName {
+  color: darkgreen;
+  font-size: 20px;
+  margin-bottom: 5px;
+}
+
+.animalDescription {
+  color: darkgreen;
+  font-size: 16px;
+  text-align: center;
+}

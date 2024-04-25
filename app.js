@@ -112,10 +112,25 @@ app.get('/login', (req, res) => {
     }
 });
 
-app.put('/profile', requireLoggedIn, (req, res) => {
-    const { firstName, lastName, email, password } = req.body;
+app.put('/profile', (req, res) => {
+    console.log("updateProfile.js")
+    const { firstName, lastName, email, password, username } = req.body;
+    const data = {
+        firstName: firstName,
+        lastName: lastName,
+        email: email,
+        password: password,
+        username: username
+    };
+    
+    const user = User.fromJSON(req.session.user);
+    user.updatePassword(data.password);
+    user.firstName = data.firstName;
+    user.lastName = data.lastName;
+    user.email = data.email;
+    user.username = data.username;
 
-    db.updateUserProfile(req.session.user.username, { firstName, lastName, email, password }, (err) => {
+    db.updateUser(user, (err) => {
         if (err) {
             // If an error occurs, send a response with status 500 and error message
             res.status(500).json({ success: false, message: err.message });
@@ -125,6 +140,18 @@ app.put('/profile', requireLoggedIn, (req, res) => {
         }
     });
 });
+    
+
+app.get("/api/animal", (req, res) => {
+    db.getAllAnimals((err, animals) => {
+        if (err) {
+            res.status(500).json({ success: false, message: err.message });
+        } else {
+            res.json(animals);
+        }
+    });
+});
+
 
 function requireLoggedIn(req, res, next) {
     if (req.session.user) {
@@ -134,6 +161,11 @@ function requireLoggedIn(req, res, next) {
     }
 }
 
-app.listen(port, () => {
+app.use((err, req, res, next) => {
+    console.error(err.stack);
+    res.status(500).send('Something went wrong!');
+});
+
+app.listen(port, () => { 
     console.log(`Server listening on port ${port}`);
 });

@@ -8,12 +8,14 @@
  * @param {string} password - The user's password.
  * @returns {Promise<Response>} - A Promise that resolves to the response of the update request.
  */
-function updateProfile(route, firstName, lastName, email, password) {
+function updateProfile(route, firstName, lastName, email, password, username) {
+    console.log("updateProfile.js");
     const data = {
         firstName: firstName,
         lastName: lastName,
         email: email,
-        password: password
+        password: password,
+        username : username
     };
 
     return fetch(route, {
