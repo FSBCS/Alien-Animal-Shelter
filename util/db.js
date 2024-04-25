@@ -177,6 +177,8 @@ class DB {
                                     }
                                 });
                             });
+                        } else {
+                            callback(null);
                         }
                     }
                 });
