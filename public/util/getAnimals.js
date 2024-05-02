@@ -22,7 +22,7 @@ function createAnimalCard(animal) {
   }
   
   function getAnimals() {
-    fetch('/api/animal')
+    fetch("/api/animal")
       .then(response => response.json())
       .then(animals => {
         const animalContainer = document.querySelector('#animal-container');
@@ -35,6 +35,5 @@ function createAnimalCard(animal) {
         console.error('Error fetching animals:', error);
       });
   }
-  
-  // Call getAnimals to fetch and display animal data
+
   getAnimals();
