@@ -15,7 +15,7 @@ function updateProfile(route, firstName, lastName, email, password, username) {
         lastName: lastName,
         email: email,
         password: password,
-        username : username
+        username: username
     };
 
     return fetch(route, {

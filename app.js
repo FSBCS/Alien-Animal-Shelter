@@ -1,10 +1,10 @@
 const express = require('express');
 const sqlite3 = require('sqlite3').verbose();
-const db = require('./util/db'); // Assuming db.js contains database functions
-const User = require('./util/user'); // Assuming User.js contains user-related functions
+const db = require('./public/util/db'); // Assuming db.js contains database functions
+const User = require('./public/util/user'); // Assuming User.js contains user-related functions
 require('dotenv').config();
 const session = require('express-session');
-const sessionSecret = require('./util/sessionSecret'); // Import the session secret generator
+const sessionSecret = require('./public/util/sessionSecret'); // Import the session secret generator
 
 const app = express();
 const port = 3000;
@@ -112,8 +112,9 @@ app.get('/login', (req, res) => {
     }
 });
 
-app.put('/profile', (req, res) => {
+app.put('/profile', (req, res) =>{
     console.log("updateProfile.js")
+    
     const { firstName, lastName, email, password, username } = req.body;
     const data = {
         firstName: firstName,
@@ -122,7 +123,7 @@ app.put('/profile', (req, res) => {
         password: password,
         username: username
     };
-    
+
     const user = User.fromJSON(req.session.user);
     user.updatePassword(data.password);
     user.firstName = data.firstName;
