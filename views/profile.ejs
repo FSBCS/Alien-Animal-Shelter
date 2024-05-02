@@ -28,6 +28,7 @@
     });
 
     document.getElementById('save-changes').addEventListener('click', function() {
+<<<<<<< HEAD
     const username = document.getElementById('edit-username').value;
     const email = document.getElementById('edit-email').value;
     const firstName = document.getElementById('edit-firstName').value;
@@ -57,4 +58,31 @@
             console.error('Failed to update profile:', error);
         });
 });
+=======
+        const username = document.getElementById('edit-username').value;
+        const email = document.getElementById('edit-email').value;
+        const firstName = document.getElementById('edit-firstName').value;
+        const lastName = document.getElementById('edit-lastName').value;
+        const password = document.getElementById('edit-password').value;
+
+        const route = '/profile'; // Assuming this is the correct route to update the profile
+        updateProfile('/profile', firstName, lastName, email, password, username)
+        
+        .then(response => {
+    if (response.ok) {
+        return response.json(); // Parse response JSON
+    } else {
+        throw new Error('Failed to update profile');
+    }
+})
+.then(data => {
+    console.log(data); // Log updated user data
+    window.location.reload(); // Reload the page to reflect the updated changes
+})
+.catch(error => {
+    console.error('Failed to update profile:', error);
+});
+    });
+
+>>>>>>> 9b210cbfec80158019c5b216a6768fd0f8712dfd
 </script>

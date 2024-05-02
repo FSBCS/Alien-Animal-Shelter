@@ -22,7 +22,11 @@ function createAnimalCard(animal) {
   }
   
   function getAnimals() {
+<<<<<<< HEAD
     fetch("/api/animal")
+=======
+    fetch('/api/animal')
+>>>>>>> 9b210cbfec80158019c5b216a6768fd0f8712dfd
       .then(response => response.json())
       .then(animals => {
         const animalContainer = document.querySelector('#animal-container');
@@ -35,5 +39,10 @@ function createAnimalCard(animal) {
         console.error('Error fetching animals:', error);
       });
   }
+<<<<<<< HEAD
 
+=======
+  
+  // Call getAnimals to fetch and display animal data
+>>>>>>> 9b210cbfec80158019c5b216a6768fd0f8712dfd
   getAnimals();
