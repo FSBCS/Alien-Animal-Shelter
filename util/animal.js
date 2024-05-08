@@ -1,4 +1,4 @@
-/**
+git update-ref -d MERGE_HEAD/**
  * Represents an animal in the shelter.
  * @class
  */
