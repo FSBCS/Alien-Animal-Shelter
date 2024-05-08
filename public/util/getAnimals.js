@@ -17,16 +17,37 @@ function createAnimalCard(animal) {
     animalDescription.textContent = animal.description;
     animalDescription.classList.add('animalDescription'); // Apply specific styling to the description
     animalCard.appendChild(animalDescription);
+
+    
+
+    const likeButton = document.createElement('i');
+    likeButton.classList.add('fas', 'fa-heart', 'likeButton');
+    if (animal.isFavorite) {
+        likeButton.classList.add('liked'); // Add 'liked' class if the animal is a favorite
+    }
+    likeButton.addEventListener('click', (event) => {
+        event.stopPropagation(); // Prevent the click event from triggering on the animalCard
+        toggleFavorite(animal.id)
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    // Toggle 'liked' class based on the new favorite status
+                    likeButton.classList.toggle('liked');
+                } else {
+                    console.error('Error updating favorite:', data.message);
+                }
+            })
+            .catch(error => {
+                console.error('Error updating favorite:', error);
+            });
+    });
+    animalCard.appendChild(likeButton);
   
     return animalCard;
   }
   
   function getAnimals() {
-<<<<<<< HEAD
     fetch("/api/animal")
-=======
-    fetch('/api/animal')
->>>>>>> 9b210cbfec80158019c5b216a6768fd0f8712dfd
       .then(response => response.json())
       .then(animals => {
         const animalContainer = document.querySelector('#animal-container');
@@ -39,10 +60,4 @@ function createAnimalCard(animal) {
         console.error('Error fetching animals:', error);
       });
   }
-<<<<<<< HEAD
-
-=======
-  
-  // Call getAnimals to fetch and display animal data
->>>>>>> 9b210cbfec80158019c5b216a6768fd0f8712dfd
   getAnimals();
