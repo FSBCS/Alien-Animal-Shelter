@@ -1,7 +1,7 @@
 header{
   display: grid;
-  grid-template-columns: 1fr;
-  grid-template-rows: auto auto; 
+  grid-template-columns: repeat(3, 1fr) auto; 
+  grid-template-rows: auto auto auto;  
   background-color: lightgreen;
   color: white;
 
@@ -9,6 +9,7 @@ header{
 
 nav {
   grid-row: 2; /* Place the nav bar in the second row */
+  grid-column: 1 / 5; /* Span the nav bar across all four columns */
   width: 100%; /* Ensure the nav bar extends across the entire header */
 }
 
@@ -18,7 +19,6 @@ body {
 
 h1 {
     color: white;
-    background-color: lightgreen;
     text-align: center;
 }
 
@@ -52,58 +52,31 @@ ul {
   }
 
 
-  button {
-    display: block;
-    grid-row: 1;
-    grid-column: 2;
-    background-color: white;
-    color: darkgreen;
-    float:right;
-    border: darkgreen;
+  .signup-button {
+    grid-column: 4;
+    justify-self: end; 
+    margin-right: 20px; 
+    padding: 10px 20px;
+    background-color: darkgreen;
+    color: white;
+    border: lightgreen;
     border-radius: 12px;
     border: 4px;
   }
- /* Form Action CSS */
+ 
 
- .form  {
-  display: flex;
-  flex-flow: row wrap;
-  align-items: center;
-}
 
-/* Add some margins for each label */
-.form label {
-  margin: 5px 10px 5px 0;
-}
 
-/* Style the input fields */
-.form input {
-  vertical-align: middle;
-  margin: 5px 10px 5px 0;
-  padding: 5px;
-  background-color: #fff;
-  border: 1px solid #ddd;
-}
 
-/* Style the submit button */
-button.submit {
-  padding: 10px 20px;
-  background-color: darkgreen;
-  border: 1px solid #ddd;
-  color: white;
-}
-
-button.submit :hover {
-  background-color: white;
-}
+/*Animal Card CSS */
 
 .animal-card {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  width: 300px;
-  height: 400px;
+  width: 200px;
+  height: 300px;
   background-color: white;
   border: 1px solid darkgreen;
   border-radius: 8px;
@@ -112,8 +85,8 @@ button.submit :hover {
 }
 
 .animalImage {
-  width: 200px;
-  height: 200px;
+  width: 110px;
+  height: 110px;
   object-fit: cover;
   border-radius: 50%;
   margin-bottom: 10px;
@@ -129,4 +102,12 @@ button.submit :hover {
   color: darkgreen;
   font-size: 16px;
   text-align: center;
+}
+
+.likeButton {
+  color: gray;
+}
+
+.likeButton.liked {
+  color: red;
 }
