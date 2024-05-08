@@ -1,3 +1,5 @@
+
+
 function createAnimalCard(animal) {
     const animalCard = document.createElement('div');
     animalCard.classList.add('animal-card');
@@ -19,32 +21,33 @@ function createAnimalCard(animal) {
     animalCard.appendChild(animalDescription);
 
     
-
     const likeButton = document.createElement('i');
     likeButton.classList.add('fas', 'fa-heart', 'likeButton');
     if (animal.isFavorite) {
-        likeButton.classList.add('liked'); // Add 'liked' class if the animal is a favorite
+        likeButton.classList.add('liked');
     }
+
     likeButton.addEventListener('click', (event) => {
-        event.stopPropagation(); // Prevent the click event from triggering on the animalCard
-        toggleFavorite(animal.id)
+        event.stopPropagation(); // Prevent click from propagating to the card
+        toggleFavorite(animal.id) // Send request to toggle favorite status
             .then(response => response.json())
             .then(data => {
                 if (data.success) {
-                    // Toggle 'liked' class based on the new favorite status
+                    // Toggle 'liked' class based on the updated favorite status
                     likeButton.classList.toggle('liked');
                 } else {
-                    console.error('Error updating favorite:', data.message);
+                    console.error('Failed to toggle favorite:', data.message);
                 }
             })
             .catch(error => {
-                console.error('Error updating favorite:', error);
+                console.error('Error toggling favorite:', error);
             });
     });
+
     animalCard.appendChild(likeButton);
-  
+
     return animalCard;
-  }
+}
   
   function getAnimals() {
     fetch("/api/animal")
