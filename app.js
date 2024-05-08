@@ -34,7 +34,7 @@ app.use(session({
     saveUninitialized: true
 }));
 
-app.post('/signup', (req, res) => {
+app.post('/', (req, res) => {
     const { username, password, email, firstName, lastName } = req.body;
 
     const newUser = User.createNewUser(username, email, firstName, lastName, password); // Create a new user
@@ -42,7 +42,7 @@ app.post('/signup', (req, res) => {
     db.insertUser(newUser, (err) => {
         if (err) {
             console.log(err);
-            res.redirect('/signup'); // Redirect to signup page on error
+            res.redirect('/'); // Redirect to signup page on error
         } else {
             console.log('User added to database');
             console.log("Received signup request");
@@ -53,7 +53,7 @@ app.post('/signup', (req, res) => {
     });
 });
 
-app.get('/signup', (req, res) => {
+app.get('/', (req, res) => {
     if (req.session.user) {
         res.redirect('/profile');
     } else {
@@ -70,8 +70,9 @@ app.post('/profile', requireLoggedIn, (req, res) => {
     res.redirect('/profile');
 });
 
-app.get('/', (req, res) => {
-    res.render('home'); // Look for a 'home.ejs' file
+app.get('/home', (req, res) => {
+    const user = req.session.user;
+    res.render('home', {user}); // Look for a 'home.ejs' file
 });
 
 app.get('/animal', (req, res) => {
@@ -90,7 +91,7 @@ app.post('/login', (req, res) => {
     db.getUserByUsername(username, (err, user) => {
         if (err) {
             console.log(err);
-            return res.redirect('/signup');
+            return res.redirect('/');
         } else {
             if (user && user.verifyPassword(password)) {
                 req.session.user = user;
@@ -153,14 +154,41 @@ app.get("/api/animal", (req, res) => {
     });
 });
 
+app.post('/api/favorites', requireLoggedIn, (req, res) => {
+    const { animalId } = req.body;
+    const user = User.fromJSON(req.session.user);
+     if (user.hasFavorite(animalId)) {
+        user.removeFavorite(animalId);
+    }   else {
+        user.addFavorite(animalId);
+    }
+    db.updateUser(user, (err) => {
+        if (err) {
+            res.status(500).json({ success: false, message: err.message });
+        } else {
+            res.json({ success: true });
+        }
+    });
+});
+    
+
+
 
 function requireLoggedIn(req, res, next) {
     if (req.session.user) {
         next();
     } else {
-        res.redirect('/signup');
+        res.redirect('/');
     }
 }
+
+function requireAuth(req, res, next) {
+    if (req.session && req.session.user) {
+        next(); 
+    } else {
+        res.redirect('/login'); 
+    }
+};
 
 app.use((err, req, res, next) => {
     console.error(err.stack);
