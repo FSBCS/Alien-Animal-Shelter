@@ -1,0 +1,50 @@
+/*Animal Card CSS */
+
+#animal-container {
+    display: flex;
+    flex-wrap: wrap;
+    grid-gap: 200px;
+    justify-content: center;
+}
+
+.animal-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 175px;
+    height: 265px;
+    background-color: white;
+    border: 1px solid darkgreen;
+    border-radius: 8px;
+    padding: 20px;
+    margin: 10px;
+}
+
+.animalImage {
+    width: 110px;
+    height: 110px;
+    object-fit: cover;
+    border-radius: 50%;
+    margin-bottom: 10px;
+}
+
+.animalName {
+    color: darkgreen;
+    font-size: 20px;
+    margin-bottom: 5px;
+}
+
+.animalDescription {
+    color: darkgreen;
+    font-size: 16px;
+    text-align: center;
+}
+
+.likeButton {
+    color: gray;
+}
+
+.likeButton.liked {
+    color: red;
+}
