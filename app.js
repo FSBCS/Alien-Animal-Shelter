@@ -1,10 +1,10 @@
 const express = require('express');
 const sqlite3 = require('sqlite3').verbose();
-const db = require('./public/util/db'); // Assuming db.js contains database functions
-const User = require('./public/util/user'); // Assuming User.js contains user-related functions
+const db = require('./util/db'); // Assuming db.js contains database functions
+const User = require('./util/user'); // Assuming User.js contains user-related functions
 require('dotenv').config();
 const session = require('express-session');
-const sessionSecret = require('./public/util/sessionSecret'); // Import the session secret generator
+const sessionSecret = require('./util/sessionSecret'); // Import the session secret generator
 
 const app = express();
 const port = 3000;
@@ -113,9 +113,10 @@ app.get('/login', (req, res) => {
     }
 });
 
-app.put('/profile', (req, res) =>{
-    console.log("updateProfile.js")
-    
+app.put('/profile', (req, res) => {
+    console.log("updating profile");
+    console.log(req.body);
+
     const { firstName, lastName, email, password, username } = req.body;
     const data = {
         firstName: firstName,
@@ -125,24 +126,18 @@ app.put('/profile', (req, res) =>{
         username: username
     };
 
-    const user = User.fromJSON(req.session.user);
+    let user = new User(req.session.user);
     user.updatePassword(data.password);
     user.firstName = data.firstName;
     user.lastName = data.lastName;
     user.email = data.email;
     user.username = data.username;
 
-    db.updateUser(user, (err) => {
-        if (err) {
-            // If an error occurs, send a response with status 500 and error message
-            res.status(500).json({ success: false, message: err.message });
-        } else {
-            // If update is successful, send a response with status 200 and success message
-            res.json({ success: true });
-        }
-    });
+    db.updateUser(user);
+
+    req.session.user = user;
+    res.json({ success: true });
 });
-    
 
 app.get("/api/animal", (req, res) => {
     db.getAllAnimals((err, animals) => {
@@ -154,21 +149,22 @@ app.get("/api/animal", (req, res) => {
     });
 });
 
-app.post('/api/favorites', requireLoggedIn, (req, res) => {
+app.post("/api/favorites", (req, res) => {
+    if (!req.session.user) {
+        return res.status(403).json({ success: false, message: "User not authenticated" });
+    }
     const { animalId } = req.body;
     const user = User.fromJSON(req.session.user);
-     if (user.hasFavorite(animalId)) {
+    if (user.favorites.includes(animalId)) {
         user.removeFavorite(animalId);
-    }   else {
+    } else {
         user.addFavorite(animalId);
     }
-    db.updateUser(user, (err) => {
-        if (err) {
-            res.status(500).json({ success: false, message: err.message });
-        } else {
-            res.json({ success: true });
-        }
-    });
+    db.updateUser(user);
+
+    req.session.user = user;
+
+    res.json({ success: true });
 });
     
 
