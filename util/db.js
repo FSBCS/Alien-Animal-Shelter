@@ -375,6 +375,16 @@ class DB {
             }
         });
     }
+
+    static deleteAnimal(id, callback = (err) => { console.log(err); }) {
+        db.run(`DELETE FROM Animals WHERE id = ?`, [id], function(err) {
+            if (err) {
+                callback(err);
+            } else {
+                callback(null);
+            }
+        });
+    }
 }
 
 
