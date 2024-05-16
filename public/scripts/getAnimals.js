@@ -30,8 +30,12 @@ function createAnimalCard(animal) {
     likeButton.addEventListener('click', (event) => {
         event.stopPropagation(); // Prevent click from propagating to the card
         toggleFavorite(animal.id) // Send request to toggle favorite status
-            .then(response => response.json())
+            .then(response => {
+              console.log('Response:', response);
+              return response.json()
+            })
             .then(data => {
+                console.log('Data:', data);
                 if (data.success) {
                     // Toggle 'liked' class based on the updated favorite status
                     likeButton.classList.toggle('liked');

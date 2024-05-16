@@ -1,5 +1,4 @@
-git update-ref -d MERGE_HEAD/**
- * Represents an animal in the shelter.
+/* Represents an animal in the shelter.
  * @class
  */
 class Animal {
