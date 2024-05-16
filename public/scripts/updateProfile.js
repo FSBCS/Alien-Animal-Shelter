@@ -9,7 +9,7 @@
  * @returns {Promise<Response>} - A Promise that resolves to the response of the update request.
  */
 function updateProfile(route, firstName, lastName, email, password, username) {
-    console.log("updateProfile.js");
+    console.log("updateProfile.js")
     const data = {
         firstName: firstName,
         lastName: lastName,
@@ -17,7 +17,8 @@ function updateProfile(route, firstName, lastName, email, password, username) {
         password: password,
         username: username
     };
-
+    console.log(data);
+    console.log('Sending fetch request to:', route, 'with data:', data);
     return fetch(route, {
         method: 'PUT',
         headers: {

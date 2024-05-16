@@ -4,7 +4,6 @@
 <div id ="profile-container">
         <div id="profile-header">
             <h1>User Profile</h1>
-            <img src="profile-picture.jpg" alt="Profile Picture" class="profile-picture">
         </div>
 
 <link rel="stylesheet" type="text/css" href="/stylesheets/profile.css">
@@ -27,7 +26,7 @@
 
 <%- include('partials/footer') %>
 
-<script src="/scripts/updateProfile.js"></script>
+<script src= "scripts/updateProfile.js"></script>
 <script>
     document .getElementById('update-profile').addEventListener('click', function() {
         document.getElementById('user-info').style.display = 'none';
@@ -40,31 +39,15 @@
         var firstName = document.getElementById('edit-firstName').value;
         var lastName = document.getElementById('edit-lastName').value;
         var password = document.getElementById('edit-password').value;
+        console.log(username, email, firstName, lastName, password);
 
-        fetch('/profile', {
-            method: 'PUT',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({
-                username: username,
-                email: email,
-                firstName: firstName,
-                lastName: lastName,
-                password: password
-            })
-        })
-        .then(response => response.json())
-        .then(data => {
-            if (data.success) {
-                document.getElementById('username').innerText = username;
-                document.getElementById('email').innerText = email;
-                document.getElementById('firstName').innerText = firstName;
-                document.getElementById('lastName').innerText = lastName;
-                document.getElementById('user-info').style.display = 'block';
-                document.getElementById('edit-user-info').style.display = 'none';
-            }
-        });
+        updateProfile("/profile", firstName, lastName, email, password, username)
+            .then(response => {
+                console.log(response);
+                if (response.status === 200) {
+                    window.location.href = "/profile";
+                }
+            });
     });
 </script>
 </html>
